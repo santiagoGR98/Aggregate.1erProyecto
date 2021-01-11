@@ -33,7 +33,7 @@ db.ventas.aggregate( [
 }
 }},
 {$group:{
-    Articulo: null,
+    Articulo: {$ne : null},
     ArticuloMasVendido: { $max: "$UnidadesVendidas"}
 }
 } ])
