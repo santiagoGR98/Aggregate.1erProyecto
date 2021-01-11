@@ -1,24 +1,13 @@
 
-/*Para saber la totalidad de tipos de instrumentos que se han vendido este año
-utilizaremos la siguiente consulta*/
 
-db.ventas.aggregate( [
-    {
-      $group: {
-         articulo: exists,
-         TotalInstrumentos: { $sum: 1 }
-      }
-    }
-  ] )
-
-/*Para saber la totalidad de dinero que hemos obtenido con la venta de pianos utilizaremos
+/*Para saber la totalidad de dinero que hemos obtenido con la venta de los diferentes artículos utilizaremos
  la siguiente consulta*/
 
- db.ventas.aggregate( [
+db.ventas.aggregate( [
       {
         $group :
           {
-            Articulo : "Piano",
+            _id: "$Articulo",
             TotalDeVenta: { $multiply: [ "$PrecioVenta", "$UnidadesVendidas" ] }
           }
        } ])
@@ -33,7 +22,7 @@ db.ventas.aggregate( [
 }
 }},
 {$group:{
-    Articulo: {$ne : null},
+    _id: "$Articulo",
     ArticuloMasVendido: { $max: "$UnidadesVendidas"}
 }
 } ])
@@ -76,7 +65,7 @@ db.ventas.aggregate( [
           }
        }])
 
-/*Menos existencias en almacen*/ db.ventas.aggregate(
+/*Menos existencias en almacen*/ 
 
     db.ventas.aggregate(
         [
