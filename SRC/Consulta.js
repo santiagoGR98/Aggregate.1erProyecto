@@ -5,7 +5,7 @@ utilizaremos la siguiente consulta*/
 db.ventas.aggregate( [
     {
       $group: {
-         _id: null,
+         articulo: exists,
          TotalInstrumentos: { $sum: 1 }
       }
     }
